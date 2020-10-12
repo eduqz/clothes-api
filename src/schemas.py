@@ -16,8 +16,6 @@ class ClothesCreate(ClothesBase):
 
 class Clothes(ClothesBase):
     id: int
-    category_id: int
-
 
     class Config:
         orm_mode = True

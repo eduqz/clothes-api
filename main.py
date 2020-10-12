@@ -43,6 +43,25 @@ def read_clothes(clothes_id: int, db: Session = Depends(get_db)):
     return db_clothes
 
 
+@app.put("/clothes/{clothes_id}", response_model=schemas.Clothes)
+def update_clothes(clothes_id: int, clothes: schemas.ClothesCreate, db: Session = Depends(get_db)):
+    db_clothes = crud.get_clothes(db=db, clothes_id=clothes_id)
+
+    if db_clothes is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return crud.update_clothes(db=db, clothes_id=clothes_id, clothes=clothes)
+
+
+@app.delete("/clothes/{clothes_id}")
+def delete_clothes(clothes_id: int, db: Session = Depends(get_db)):
+    db_clothes = crud.get_clothes(db=db, clothes_id=clothes_id)
+    if db_clothes is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return crud.delete_clothes(db=db, clothes_id=clothes_id)
+
+
 @app.post("/categories/", response_model=schemas.Category)
 def create_category(
     category: schemas.CategoryCreate, db: Session = Depends(get_db)
