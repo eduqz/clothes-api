@@ -19,7 +19,7 @@ def create_clothes(db: Session, clothes: schemas.ClothesCreate):
     db.refresh(db_clothes)
     return db_clothes
 
-def update_clothes(db: Session, clothes_id: int, clothes: schemas.ClothesCreate):
+def update_clothes(db: Session, clothes_id: int, clothes: schemas.ClothesEdition):
     db_clothes = db.query(models.Clothes).filter(models.Clothes.id == clothes_id).first()
     
     if (clothes.name):
@@ -39,6 +39,7 @@ def update_clothes(db: Session, clothes_id: int, clothes: schemas.ClothesCreate)
 
     db.commit()
     db.refresh(db_clothes)
+
     return db_clothes
 
 def delete_clothes(db: Session, clothes_id: int):

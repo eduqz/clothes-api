@@ -44,11 +44,13 @@ def read_clothes(clothes_id: int, db: Session = Depends(get_db)):
 
 
 @app.put("/clothes/{clothes_id}", response_model=schemas.Clothes)
-def update_clothes(clothes_id: int, clothes: schemas.ClothesCreate, db: Session = Depends(get_db)):
+def update_clothes(clothes_id: int, clothes: schemas.ClothesEdition, db: Session = Depends(get_db)):
     db_clothes = crud.get_clothes(db=db, clothes_id=clothes_id)
 
     if db_clothes is None:
         raise HTTPException(status_code=404, detail="User not found")
+
+    print(db_clothes)
     
     return crud.update_clothes(db=db, clothes_id=clothes_id, clothes=clothes)
 
