@@ -3,6 +3,9 @@ from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
+import sys
+sys.path.append('./src')
+
 import crud, models, schemas
 from database import SessionLocal, engine
 
